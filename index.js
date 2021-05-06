@@ -61,21 +61,18 @@ function hideModal() {
 function createTwit() {
   /* 5pts: alert is given */
   if (modalText == "" || modalAuthor == "") {
-    alert("You must specify both the twit and the author of the twit.");
+    alert("You must specify both the twit and the author of the twit.")
   } else {
-    // new values
-    var newText = modalText.value;
-    var newAuthor = modalAuthor.value;
 
     // clone a twit outline
-    var example = document.getElementsByClassName("twit")[0];
-    var newTwit = example.cloneNode();
+    var example = document.getElementsByClassName("twit")[0]
+    var newTwit = example.cloneNode()
 
-    var twitContainer = document.getElementsByClassName("twit-container")[0];
+    var twitContainer = document.getElementsByClassName("twit-container")[0]
 
     /* 5pts: new twit creation is not vulnerable to attacks */
-    newTwit.children[1].children[0].textContent = newText;
-    newTwit.children[1].children[1].children[1].textContent = newAuthor;
+    newTwit.children[1].children[0].textContent = modalText.value
+    newTwit.children[1].children[1].children[1].textContent = modalText.author;
 
     twitContainer.append(newTwit);
   }
