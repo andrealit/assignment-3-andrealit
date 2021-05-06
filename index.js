@@ -79,8 +79,11 @@ function createTwit() {
 
     
     console.log("== Author: " + newTwit.children[1].children[1].children[0].value)
+    newTwit.children[1].children[1].children[0].innerText = newAuthorValue
+    // use textContent?
+    console.log("== Author After: " + newTwit.children[1].children[1].children[0].value)
+    console.log("== Author InnerText After: " + newTwit.children[1].children[1].children[0].innerText)
 
-    
     twitContainer.appendChild(newTwit)
 
     // (3pts) close the modal after accept button clicked
