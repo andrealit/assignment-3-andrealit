@@ -10,7 +10,7 @@
 
 // General
 var buttonSelect = document.getElementById("create-twit-button");
-var modalSelect = document.getElementById("modal-backdrop");
+var modalBackground = document.getElementById("modal-backdrop");
 var modalTwitSelect = document.getElementById("create-twit-modal");
 
 // Store the removed nodes
@@ -44,13 +44,13 @@ itemSearch.addEventListener('input', searchTwit);
 
 /*  10pts: Display the modal and its backdrop */
 function showModal() {
-  modalSelect.classList.remove("hidden");
+  modalBackground.classList.remove("hidden");
   modalTwitSelect.classList.remove("hidden");
 }
 
 /* 10pts: Hide the modal and the backdrop */
 function hideModal() {
-  modalSelect.classList.add("hidden");
+  modalBackground.classList.add("hidden");
   modalTwitSelect.classList.add("hidden");
   /* 5pts: User input values are cleared */
   modalText.value = "";
@@ -60,7 +60,7 @@ function hideModal() {
 /* 30pts: Create the correctly formatted twit to the end of the page */
 function createTwit() {
   /* 5pts: alert is given */
-  if (modalText === "" || modalAuthor === "") {
+  if (modalText == "" || modalAuthor == "") {
     alert("You must specify both the twit and the author of the twit.");
   } else {
     // new values
