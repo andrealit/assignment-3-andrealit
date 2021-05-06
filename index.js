@@ -5,99 +5,132 @@
  * Name: Andrea Tongsak
  * Email: tongsaka@oregonstate.edu
  */
-
 /*
  * Add your JavaScript to this file to complete the assignment.
  */
-function createTweet(){
-    document.getElementById("modal-backdrop").classList.remove("hidden");
-    document.getElementById("create-twit-modal").style.display ="block";
-    
-    }
-    
-    
-  function CloseModal(){
-    document.getElementById("modal-backdrop").classList.add("hidden");
-    document.getElementById("create-twit-modal").style.display ="none";
-    document.getElementById("twit-text-input").value = "";
-    document.getElementById("twit-attribution-input").value = "";
-    
-    }
-  
-  function createTwit(){
-    var text, author, element, element_two, inner_element, twit_content;
-    text = document.getElementById("twit-text-input").value;
-    author = document.getElementById("twit-attribution-input").value;
-    
-    element = document.createElement('article');
-    if (text=="" || author==""){
-      alert('You have left the Author or Text boxes blank. You must fill out all boxes.')
-    }
-    else {
-    element_two = element;
-    element.setAttribute('class','twit');
-    document.getElementById("twit-container-div").append(element);
-    inner_element = document.createElement('div');
-    inner_element.setAttribute('class','twit-icon');
-    element.append(inner_element);
-    element = inner_element;
-    inner_element = document.createElement('i');
-    inner_element.setAttribute('class','fa fa-bullhorn');
-    element.append(inner_element);
-    element = inner_element;
-    inner_element = document.createElement('div');
-    twit_content = inner_element;
-    inner_element.setAttribute('class','twit-content');
-    element_two.append(inner_element);
-    element = inner_element;
-    inner_element = document.createElement('p');
-    inner_element.setAttribute('class','twit-text');
-    inner_element.textContent = text;
-    element.append(inner_element);
-    element = inner_element;
-    inner_element = document.createElement('p');
-    inner_element.setAttribute('class','twit-author');
-    twit_content.append(inner_element);
-    element = inner_element;
-    inner_element = document.createElement('a');
-    inner_element.setAttribute('href','#');
-    inner_element.textContent = author;
-    element.append(inner_element);
-    element = inner_element;
-    CloseModal();
-  
-      }
-    }
-  
-  $(function() {
-      $("#navbar-search-button").click(search);
-  });
-  
-  function search(){
-    var search, x;
-    search = document.getElementById("navbar-search-input").value;
-    document.querySelectorAll('.twit-content').forEach(function(item){
-        x = item.innerText.includes(search);
-        console.log(x);
-        if(!x) {
-            item.parentNode.remove();
-        }
-    })
+// external Variables
+var buttonSelect = document.getElementById('create-twit-button');
+var modalSelect = document.getElementById('modal-backdrop');
+var modalTwitSelect = document.getElementById('create-twit-modal');
+var cloneNodes = [];
+
+//modal Variables
+var modalCancel = document.getElementsByClassName('modal-cancel-button');
+var modalClose = document.getElementsByClassName('modal-close-button');
+var modalAccept = document.getElementsByClassName('modal-accept-button');
+var modalText = document.getElementById('twit-text-input');
+var modalAuthor = document.getElementById('twit-attribution-input');
+
+//search Variables
+var twitSearch = document.getElementsByClassName('twit');
+var inputSearch = document.getElementById('navbar-search-input');
+var itemSearch = document.querySelector('input[type="text"]');
+var formSearch = document.querySelector('form');
+var twitTextSearch = document.getElementsByClassName('twit-text');
+var twitAuthorSearch = document.getElementsByClassName('twit-author');
+var filterSearch = inputSearch.value.toUpperCase();
+
+//twit Addition Variables
+var containerTwit = document.getElementById('twit-container-div');
+
+//external Event Listeners
+buttonSelect.addEventListener('click',openModal);
+
+//modal Event Listeners
+modalCancel[0].addEventListener('click',closeModal);
+modalClose[0].addEventListener('click',closeModal);
+modalAccept[0].addEventListener('click',createTwit);
+
+//searching Event Listeners
+ itemSearch.addEventListener('input', searchTwits);
+
+function openModal(){
+  modalSelect.classList.remove("hidden");
+  modalTwitSelect.classList.remove("hidden");
+}
+
+function closeModal(){
+  modalSelect.classList.add("hidden");
+  modalTwitSelect.classList.add("hidden");
+  modalText.value = "";
+  modalAuthor.value = "";
+}
+
+function createTwit(){
+  if(modalText.value == "" || modalAuthor.value == ""){
+    alert("Please Enter All Values");
   }
-  
-  function live_search(){
-    var input, fil, ul, li, x, i, txtvalue;
-    input = document.getElementById("myInput");
-    fil = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i=0; i<li.length; i++){
-      x = li[i].getElementsByTagName("a")[0];
-      txtvalue = a.textContent || x.innerText;
-      if (txtvalue.toUpperCase().indexOf(fil) > -1){
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
+
+  else{
+    var newTextValue = modalText.value;
+    var newAuthorValue = modalAuthor.value;
+
+    var newText = document.createElement('p');
+    var newAuthor = document.createElement('p');
+    var newHlnk = document.createElement('a');
+    var newArticle = document.createElement('article');
+    var newDiv = document.createElement('div');
+    var newIcon = document.createElement('i');
+    var newContent = document.createElement('div');
+
+    var twitContainer = document.getElementsByClassName('twit-container');
+
+    modalSelect.classList.add("hidden");
+    modalTwitSelect.classList.add("hidden");
+    modalText.value = "";
+    modalAuthor.value = "";
+
+    newText.setAttribute('class','twit-text');
+    newAuthor.setAttribute('class','twit-author');
+    newArticle.setAttribute('class','twit');
+    newDiv.setAttribute('class','twit-icon');
+    newIcon.setAttribute('class','fas fa-bullhorn');
+    newContent.setAttribute('class','twit-content');
+
+    newHlnk.setAttribute('href','#');
+
+    newHlnk.textContent = newAuthorValue;
+    newText.textContent = newTextValue;
+
+    newAuthor.append(newHlnk);
+    newContent.append(newText);
+    newContent.append(newAuthor);
+    newDiv.append(newIcon);
+    newArticle.append(newDiv);
+    newArticle.append(newContent);
+    twitContainer[0].append(newArticle);
+
+  }
+}
+
+function searchTwits(){
+  // console.log("searching");
+  // console.log(inputSearch);
+  // console.log(itemSearch);
+  resetSearch();
+
+  for(var i = 0; i < twitTextSearch.length; i++){
+    // console.log(twitTextSearch.length);
+    if(!twitTextSearch[i].innerText.includes(inputSearch.value) && !twitAuthorSearch[i].innerText.includes(inputSearch.value)){
+      var clone = twitSearch[i].cloneNode(true);
+      cloneNodes.push(twitSearch[i]);
+      // console.log(cloneNodes);
+       twitSearch[i].parentNode.removeChild(twitSearch[i]);
+       i--;
+      // twitSearch[i].classList.add("hidden");
     }
   }
+}
+
+function resetSearch(){
+  // console.log("resetting");
+  // var hiddenTwits = document.getElementsByClassName('hidden');
+  // console.log(hiddenTwits);
+  var twitContainer = document.getElementsByClassName('twit-container');
+
+  for(var i = 0; i < cloneNodes.length; i++){
+    // twitSearch[i].classList.remove("hidden");
+    twitContainer[0].append(cloneNodes[i]);
+  }
+  cloneNodes = [];
+}
