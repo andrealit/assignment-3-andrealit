@@ -66,7 +66,7 @@ function createTwit() {
 
     // clone a twit outline
     var example = document.getElementsByClassName('twit')[0]
-    var newTwit = example.cloneNode()
+    var newTwit = example.cloneNode(true)
 
     var twitContainer = document.getElementsByClassName('twit-container')[0]
 
@@ -76,7 +76,7 @@ function createTwit() {
     console.log("== Child[0] of Twit: " + newTwit.children[0])
     console.log("== Child[1] of Twit: " + newTwit.children[1])
     console.log("== Child[1].child[1] of Twit: " + newTwit.children[1].children[1])
-    
+
     
     console.log("== Author: " + newTwit.children[1].children[1].children[0])
 
