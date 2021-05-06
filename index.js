@@ -71,24 +71,8 @@ function createTwit() {
     var twitContainer = document.getElementsByClassName('twit-container')[0]
 
     /* 5pts: new twit creation is not vulnerable to attacks */
-    // gives undefined -> console.log("== Cloned Author Attempt: " + newTwit.modalAuthor)
-    // gives undefined -> console.log("== Cloned Text Attempt: " + newTwit.modalText)
-    //console.log("== Child[0] of Twit: " + newTwit.children[0])
-    //console.log("== Child[1] of Twit: " + newTwit.children[1])
-    console.log("== Child[1].child[1] of Twit: " + newTwit.children[1].children[1])
-
-    
-    console.log("== Author: " + newTwit.children[1].children[1].children[0].value)
-    console.log("== Author InnerText Before: " + newTwit.children[1].children[1].children[0].innerText)
-    console.log("== Author testContent Before: " + newTwit.children[1].children[1].children[0].textContent)
-
-    newTwit.children[1].children[1].children[0].innerText = modalAuthor.value
-    // use textContent?
-    console.log("== Author After: " + newTwit.children[1].children[1].children[0].value)
-    console.log("== Author InnerText After: " + newTwit.children[1].children[1].children[0].innerText)
-    console.log("== Author testContent After: " + newTwit.children[1].children[1].children[0].textContent)
-
-
+    newTwit.children[1].children[1].children[0].textContent = modalAuthor.value
+    newTwit.children[1].children[0].textContent = modalText.value
 
     twitContainer.appendChild(newTwit)
 
