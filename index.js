@@ -9,20 +9,20 @@
 /* Variables */
 
 // General
-var buttonSelect = document.getElementById("create-twit-button");
-var modalBackground = document.getElementById("modal-backdrop");
-var modalTwitSelect = document.getElementById("create-twit-modal");
+var buttonSelect = document.getElementById('create-twit-button');
+var modalBackground = document.getElementById('modal-backdrop');
+var modalTwitSelect = document.getElementById('create-twit-modal');
 
 // Store the removed nodes
 var removedNodes = [];
 
 // Modal Variables
-var modalCancel = document.getElementsByClassName("modal-cancel-button");
-var modalClose = document.getElementsByClassName("modal-close-button");
-var modalAccept = document.getElementsByClassName("modal-accept-button");
+var modalCancel = document.getElementsByClassName('modal-cancel-button');
+var modalClose = document.getElementsByClassName('modal-close-button');
+var modalAccept = document.getElementsByClassName('modal-accept-button');
 
-var modalText = document.getElementById("twit-text-input");
-var modalAuthor = document.getElementById("twit-attribution-input");
+var modalText = document.getElementById('twit-text-input');
+var modalAuthor = document.getElementById('twit-attribution-input');
 
 // Search Variables
 var twitSearch = document.getElementsByClassName('twit');
@@ -60,21 +60,21 @@ function hideModal() {
 /* 30pts: Create the correctly formatted twit to the end of the page */
 function createTwit() {
   /* 5pts: alert is given */
-  if (modalText == "" || modalAuthor == "") {
+  if (modalText.value == "" || modalAuthor.value == "") {
     alert("You must specify both the twit and the author of the twit.")
   } else {
 
     // clone a twit outline
-    var example = document.getElementsByClassName("twit")[0]
+    var example = document.getElementsByClassName('twit')[0]
     var newTwit = example.cloneNode()
 
-    var twitContainer = document.getElementsByClassName("twit-container")[0]
+    var twitContainer = document.getElementsByClassName('twit-container')[0]
 
     /* 5pts: new twit creation is not vulnerable to attacks */
-    newTwit.children[1].children[0].textContent = modalText.value
-    newTwit.children[1].children[1].children[1].textContent = modalText.author;
+    console.log("== Cloned Author Attempt: " + newTwit.modalAuthor.value)
+    console.log("== Cloned Text Attempt: " + newTwit.modalText.value)
 
-    twitContainer.append(newTwit);
+    twitContainer.appendChild(newTwit);
   }
 }
 
