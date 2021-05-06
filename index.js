@@ -87,11 +87,13 @@ function searchTwit () {
     repeatSearch()
 
     /* 5pts: live search (MUST LOOP BACKWARDS or loop forward and store elements) */
-    for (var i = twitTextSearch.length -1; i > -1; i--) {
+    for (var i = 0; i < twitTextSearch.length; i++) {
         if(!twitTextSearch[i].innerText.includes(filterSearch) && !twitAuthorSearch[i].innerText.includes(filterSearch)) {
             removedNodes.push(twitSearch[i])
             // remove the entire twit
             twitSearch[i].parentNode.removeChild(twitSearch[i])
+
+            i--
         }
     }
 }
@@ -101,7 +103,7 @@ function searchTwit () {
 function repeatSearch () {
     var twitContainer = document.getElementsByClassName('twit-container')[0]
 
-    for (var i = removedNodes.length -1; i > -1; i--) {
+    for (var i = 0; i < removedNodes.length; i++) {
         twitContainer.append(removedNodes[i])
     }
     removedNodes = []
