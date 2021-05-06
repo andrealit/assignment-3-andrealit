@@ -71,8 +71,8 @@ function createTwit() {
     var twitContainer = document.getElementsByClassName('twit-container')[0]
 
     /* 5pts: new twit creation is not vulnerable to attacks */
-    console.log("== Cloned Author Attempt: " + newTwit.modalAuthor.value)
-    console.log("== Cloned Text Attempt: " + newTwit.modalText.value)
+    console.log("== Cloned Author Attempt: " + newTwit.modalAuthor)
+    console.log("== Cloned Text Attempt: " + newTwit.modalText)
 
     twitContainer.appendChild(newTwit);
   }
