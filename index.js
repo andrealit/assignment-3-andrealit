@@ -31,17 +31,16 @@ var itemSearch = document.querySelector('input[type="text"]');
 
 var twitTextSearch = document.getElementsByClassName('twit-text');
 var twitAuthorSearch = document.getElementsByClassName('twit-author');
-var filterSearch = inputSearch.value.toUpperCase();
 
 /* EVENTS */
 
-buttonSelect.addEventListener("click", showModal);
+buttonSelect.addEventListener('click', showModal);
 
-modalCancel[0].addEventListener("click", hideModal);
-modalClose[0].addEventListener("click", hideModal);
-modalAccept[0].addEventListener("click", createTwit);
+modalCancel[0].addEventListener('click', hideModal);
+modalClose[0].addEventListener('click', hideModal);
+modalAccept[0].addEventListener('click', createTwit);
 
-itemSearch.addEventListener("input", searchTwit);
+itemSearch.addEventListener('input', searchTwit);
 
 /*  10pts: Display the modal and its backdrop */
 function showModal() {
@@ -88,7 +87,7 @@ function searchTwit () {
 
     /* 5pts: live search (MUST LOOP BACKWARDS or loop forward and store elements) */
     for (var i = 0; i < twitTextSearch.length; i++) {
-        if(!twitTextSearch[i].innerText.includes(filterSearch) && !twitAuthorSearch[i].innerText.includes(filterSearch)) {
+        if(!twitTextSearch[i].innerText.includes(inputSearch.value) && !twitAuthorSearch[i].innerText.includes(inputSearch.value)) {
             removedNodes.push(twitSearch[i])
             // remove the entire twit
             twitSearch[i].parentNode.removeChild(twitSearch[i])
