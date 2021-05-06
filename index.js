@@ -71,9 +71,16 @@ function createTwit() {
     var twitContainer = document.getElementsByClassName('twit-container')[0]
 
     /* 5pts: new twit creation is not vulnerable to attacks */
-    console.log("== Cloned Author Attempt: " + newTwit.modalAuthor)
-    console.log("== Cloned Text Attempt: " + newTwit.modalText)
+    // gives undefined -> console.log("== Cloned Author Attempt: " + newTwit.modalAuthor)
+    // gives undefined -> console.log("== Cloned Text Attempt: " + newTwit.modalText)
+    console.log("== Child[0] of Twit: " + newTwit.children[0])
+    console.log("== Child[1] of Twit: " + newTwit.children[1])
+    console.log("== Child[1].child[1] of Twit: " + newTwit.children[1].children[1])
+    
+    
+    console.log("== Author: " + newTwit.children[1].children[1].children[0])
 
+    
     twitContainer.appendChild(newTwit);
   }
 }
