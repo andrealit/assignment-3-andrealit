@@ -5,132 +5,104 @@
  * Name: Andrea Tongsak
  * Email: tongsaka@oregonstate.edu
  */
-/*
- * Add your JavaScript to this file to complete the assignment.
- */
-// external Variables
-var buttonSelect = document.getElementById('create-twit-button');
-var modalSelect = document.getElementById('modal-backdrop');
-var modalTwitSelect = document.getElementById('create-twit-modal');
-var cloneNodes = [];
 
-//modal Variables
-var modalCancel = document.getElementsByClassName('modal-cancel-button');
-var modalClose = document.getElementsByClassName('modal-close-button');
-var modalAccept = document.getElementsByClassName('modal-accept-button');
-var modalText = document.getElementById('twit-text-input');
-var modalAuthor = document.getElementById('twit-attribution-input');
+/* Variables */
 
-//search Variables
+// General
+var buttonSelect = document.getElementById("create-twit-button");
+var modalSelect = document.getElementById("modal-backdrop");
+var modalTwitSelect = document.getElementById("create-twit-modal");
+
+// Store the removed nodes
+var removedNodes = [];
+
+// Modal Variables
+var modalCancel = document.getElementsByClassName("modal-cancel-button");
+var modalClose = document.getElementsByClassName("modal-close-button");
+var modalAccept = document.getElementsByClassName("modal-accept-button");
+
+var modalText = document.getElementById("twit-text-input");
+var modalAuthor = document.getElementById("twit-attribution-input");
+
+// Search Variables
 var twitSearch = document.getElementsByClassName('twit');
 var inputSearch = document.getElementById('navbar-search-input');
 var itemSearch = document.querySelector('input[type="text"]');
-var formSearch = document.querySelector('form');
+
 var twitTextSearch = document.getElementsByClassName('twit-text');
 var twitAuthorSearch = document.getElementsByClassName('twit-author');
 var filterSearch = inputSearch.value.toUpperCase();
 
-//twit Addition Variables
-var containerTwit = document.getElementById('twit-container-div');
+/* EVENTS */
 
-//external Event Listeners
-buttonSelect.addEventListener('click',openModal);
+buttonSelect.addEventListener("click", showModal);
 
-//modal Event Listeners
-modalCancel[0].addEventListener('click',closeModal);
-modalClose[0].addEventListener('click',closeModal);
-modalAccept[0].addEventListener('click',createTwit);
+modalCancel[0].addEventListener("click", hideModal);
+modalClose[0].addEventListener("click", hideModal);
+modalAccept[0].addEventListener("click", createTwit);
 
-//searching Event Listeners
- itemSearch.addEventListener('input', searchTwits);
+itemSearch.addEventListener("input", searchTwit);
 
-function openModal(){
+/*  10pts: Display the modal and its backdrop */
+function showModal() {
   modalSelect.classList.remove("hidden");
   modalTwitSelect.classList.remove("hidden");
 }
 
-function closeModal(){
+/* 10pts: Hide the modal and the backdrop */
+function hideModal() {
   modalSelect.classList.add("hidden");
   modalTwitSelect.classList.add("hidden");
+  /* 5pts: User input values are cleared */
   modalText.value = "";
   modalAuthor.value = "";
 }
 
-function createTwit(){
-  if(modalText.value == "" || modalAuthor.value == ""){
-    alert("Please Enter All Values");
-  }
+/* 30pts: Create the correctly formatted twit to the end of the page */
+function createTwit() {
+  /* 5pts: alert is given */
+  if (modalText === "" || modalAuthor === "") {
+    alert("You must specify both the twit and the author of the twit.");
+  } else {
+    // new values
+    var newText = modalText.value;
+    var newAuthor = modalAuthor.value;
 
-  else{
-    var newTextValue = modalText.value;
-    var newAuthorValue = modalAuthor.value;
+    // clone a twit outline
+    var example = document.getElementsByClassName("twit")[0];
+    var newTwit = example.cloneNode();
 
-    var newText = document.createElement('p');
-    var newAuthor = document.createElement('p');
-    var newHlnk = document.createElement('a');
-    var newArticle = document.createElement('article');
-    var newDiv = document.createElement('div');
-    var newIcon = document.createElement('i');
-    var newContent = document.createElement('div');
+    var twitContainer = document.getElementsByClassName("twit-container")[0];
 
-    var twitContainer = document.getElementsByClassName('twit-container');
+    /* 5pts: new twit creation is not vulnerable to attacks */
+    newTwit.children[1].children[0].textContent = newText;
+    newTwit.children[1].children[1].children[1].textContent = newAuthor;
 
-    modalSelect.classList.add("hidden");
-    modalTwitSelect.classList.add("hidden");
-    modalText.value = "";
-    modalAuthor.value = "";
-
-    newText.setAttribute('class','twit-text');
-    newAuthor.setAttribute('class','twit-author');
-    newArticle.setAttribute('class','twit');
-    newDiv.setAttribute('class','twit-icon');
-    newIcon.setAttribute('class','fas fa-bullhorn');
-    newContent.setAttribute('class','twit-content');
-
-    newHlnk.setAttribute('href','#');
-
-    newHlnk.textContent = newAuthorValue;
-    newText.textContent = newTextValue;
-
-    newAuthor.append(newHlnk);
-    newContent.append(newText);
-    newContent.append(newAuthor);
-    newDiv.append(newIcon);
-    newArticle.append(newDiv);
-    newArticle.append(newContent);
-    twitContainer[0].append(newArticle);
-
+    twitContainer.append(newTwit);
   }
 }
 
-function searchTwits(){
-  // console.log("searching");
-  // console.log(inputSearch);
-  // console.log(itemSearch);
-  resetSearch();
+/* Twit Search */
+function searchTwit () {
+    repeatSearch()
 
-  for(var i = 0; i < twitTextSearch.length; i++){
-    // console.log(twitTextSearch.length);
-    if(!twitTextSearch[i].innerText.includes(inputSearch.value) && !twitAuthorSearch[i].innerText.includes(inputSearch.value)){
-      var clone = twitSearch[i].cloneNode(true);
-      cloneNodes.push(twitSearch[i]);
-      // console.log(cloneNodes);
-       twitSearch[i].parentNode.removeChild(twitSearch[i]);
-       i--;
-      // twitSearch[i].classList.add("hidden");
+    /* 5pts: live search (MUST LOOP BACKWARDS or loop forward and store elements) */
+    for (var i = twitTextSearch.length -1; i > -1; i--) {
+        if(!twitTextSearch[i].innerText.includes(filterSearch) && !twitAuthorSearch[i].innerText.includes(filterSearch)) {
+            removedNodes.push(twitSearch[i])
+            // remove the entire twit
+            twitSearch[i].parentNode.removeChild(twitSearch[i])
+        }
     }
-  }
 }
 
-function resetSearch(){
-  // console.log("resetting");
-  // var hiddenTwits = document.getElementsByClassName('hidden');
-  // console.log(hiddenTwits);
-  var twitContainer = document.getElementsByClassName('twit-container');
 
-  for(var i = 0; i < cloneNodes.length; i++){
-    // twitSearch[i].classList.remove("hidden");
-    twitContainer[0].append(cloneNodes[i]);
-  }
-  cloneNodes = [];
+/* 10pts: Re-searching enabled */
+function repeatSearch () {
+    var twitContainer = document.getElementsByClassName('twit-container')[0]
+
+    for (var i = removedNodes.length -1; i > -1; i--) {
+        twitContainer.append(removedNodes[i])
+    }
+    removedNodes = []
 }
